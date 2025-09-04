@@ -1,0 +1,12 @@
+#!/bin/bash
+source_dir="$HOME/linux_learning/file_filter/project/"
+backup_dir="$HOME/linux_learning/file_filter/backup"
+mkdir -p "$backup_dir"
+today=$(date +"%Y-%m-%d")
+backup_dir_main="$backup_dir/backup_$today"
+mkdir -p "$backup_dir_main"
+
+cp -r "$source_dir" "$backup_dir_main"
+
+echo "Backup completed succesfully!"
+
