@@ -1,0 +1,33 @@
+#!/bin/bash
+DIR=${1:-.}
+echo "$DIR" || { echo "Directory didn't found "; exit 1; }
+cd "$DIR" || { echo "Directory didn't found "; exit 1; }
+for file in *; do
+        # first check wiether it's file or directory
+        [ -f "$file" ] || continue
+        echo "$file"
+        ext="${file##*.}"
+        echo "$ext"
+        if [ "$ext" = "$file" ]; then
+           folder="Other"
+        else
+            case "$ext" in
+                txt) folder="Text_File" ;;
+                jpg|jpeg|png|gif) folder="Images" ;;
+                sh) folder="Script" ;;
+                pdf) folder="PDFs" ;;
+                *) folder="${file^^}_Files" ;;
+            esac
+
+        fi
+        # create folder if it doesn't exist
+        mkdir -p "$folder"
+
+        # move files
+        mv "$file" "$folder/"
+        echo "moved $file -> $folder/"
+
+done
+
+echo "File Organization completed"
+
