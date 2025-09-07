@@ -1,0 +1,29 @@
+#!/bin/bash
+
+read -p "Enter directory to search in " search_dir
+read -p "Enter file namd for pattern (e.g *.txt, *.csv) " pattern
+
+# check if directory exist or not
+if [ ! -d "$search_dir" ]; then
+        echo "Error: Directory doesn't exist !"
+        exit 1
+fi
+
+echo " "
+echo "search for '$pattern' in 'search_dir' "
+echo " "
+
+
+find "$search_dir" -type f -name "$pattern" | while read -r file; do
+    size=$(stat -c%s "$file")
+    perms=$(stat -c%A "$file")
+
+    echo "size $size"
+    echo "path $path in byte"
+    echo "permissions $perm "
+
+    echo "   "
+
+
+done
+
