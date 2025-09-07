@@ -1,0 +1,29 @@
+#!/bin/bash
+
+logfile=$1
+
+# Usage: ./log_analyzer.sh logfile.log
+
+if [[ ! -f "$logfile" ]]; then
+        echo " log file not found "
+        exit 1
+fi
+
+echo "Log file analyzing $logfile"
+
+head -n 10 "$logfile"
+
+echo "Error /Worning count "
+
+grep -i "error" "$logfile" | wc -l | xargs echo "error.."
+grep -i "warning" "$logfile" | wc -l | xargs echo "warning"
+
+echo
+
+# Extract logs from a specific date
+
+
+read -p "Enter date for log filter logs (format: YYYY-MM-DD): " logdate
+echo "logs from $logfile"
+
+grep "$logdate" "$logfile"
