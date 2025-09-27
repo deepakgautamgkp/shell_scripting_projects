@@ -1,0 +1,30 @@
+#!/bin/bash
+
+if [$# -lt 2]; then
+        echo "Usage: $0 output_file sort_column(Optional)"
+        echo "Example: $0 merged.csv 2"
+        exit 1
+fi
+OUTPUT_FILE=$1
+SORT_FILE=$2
+
+# steps-1 Merge all CSV/TXT files into one
+echo "Merging file......"
+cat *.csv *.txt > temp_merged.txt
+
+#step-2: Sort based on column or alphabetically
+
+if [ -z "$SORT_COLUMN" ]; then
+        echo "Sorting alphabetically...."
+        sort temp_merged.txt > "$OUTPUT_FILE"
+else
+        echo "Sorting by column $SORT_COLUMN..."
+        sort -t',' -k"$SORT_COLUMN" temp_merged.txt > "$OUTPUT_FILE"
+fi
+
+#Step 3: clean up
+
+rm temp_merged.txt
+
+echo "Merged and sorted file saved as $OUTPUT_FILE"
+~
